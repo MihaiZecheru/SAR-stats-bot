@@ -1,0 +1,1 @@
+export const icon: string = "https://cdn.discordapp.com/attachments/742932318137876615/997649860566188073/rat.png";
