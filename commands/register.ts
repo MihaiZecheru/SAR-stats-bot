@@ -37,6 +37,7 @@ export async function register(dUser: GuildMember, steamProfileLink: string, nam
   } as IApplicationUser));
 
   return { embeds: [{
+    color: Colors.green,
     name: "Successfully Registered",
     description: `Your account has been registered with the bot with the name \`${user.name}\`. Type \`/stats\` to view your Super Animal Royale stats!`,
     timestamp: new Date(),
