@@ -392,6 +392,10 @@ export async function compareStat(stat: string): Promise<object> {
     case "solos wins %":
     case "wins % solo":
     case "wins % solos":
+    case "win ratio solos":
+    case "wins ratio solos":
+    case "wins ratio solo":
+    case "win ratio solo":
       title = "Solos Win Percentage";
       return makeEmbed(title, users.sort((a, b) => ((((a.stats.Wins.value / ((a.stats.Games.value - a.stats.Wins.value) === 0 ? 1 : (a.stats.Games.value - a.stats.Wins.value)))) * 100).toFixed(2) > ((((b.stats.Wins.value / ((b.stats.Games.value - b.stats.Wins.value) === 0 ? 1 : (b.stats.Games.value - b.stats.Wins.value)))) * 100).toFixed(2)) ? 1 : -1)).reverse().map((user: SARdata, index: number) => {
         return { 
@@ -425,6 +429,10 @@ export async function compareStat(stat: string): Promise<object> {
     case "duos wins %":
     case "wins % duo":
     case "wins % duos":
+    case "win ratio duos":
+    case "wins ratio duos":
+    case "wins ratio duo":
+    case "win ratio duo":
       title = "Duos Win Percentage";
       return makeEmbed(title, users.sort((a, b) => ((((a.stats.WinsDuos.value / ((a.stats.GamesDuos.value - a.stats.WinsDuos.value) === 0 ? 1 : (a.stats.GamesDuos.value - a.stats.WinsDuos.value)))) * 100).toFixed(2) > ((((b.stats.Wins.value / ((b.stats.GamesDuos.value - b.stats.WinsDuos.value) === 0 ? 1 : (b.stats.GamesDuos.value - b.stats.WinsDuos.value)))) * 100).toFixed(2)) ? 1 : -1)).reverse().map((user: SARdata, index: number) => {
         return { 
@@ -458,6 +466,10 @@ export async function compareStat(stat: string): Promise<object> {
     case "squads wins %":
     case "wins % squad":
     case "wins % squads":
+    case "win ratio squads":
+    case "wins ratio squads":
+    case "wins ratio squad":
+    case "win ratio squad":
       title = "Squads Win Percentage";
       return makeEmbed(title, users.sort((a, b) => ((((a.stats.WinsSquads.value / ((a.stats.GamesSquads.value - a.stats.WinsSquads.value) === 0 ? 1 : (a.stats.GamesSquads.value - a.stats.WinsSquads.value)))) * 100).toFixed(2) > ((((b.stats.WinsSquads.value / ((b.stats.GamesSquads.value - b.stats.WinsSquads.value) === 0 ? 1 : (b.stats.GamesSquads.value - b.stats.WinsSquads.value)))) * 100).toFixed(2)) ? 1 : -1)).reverse().map((user: SARdata, index: number) => {
         return { 
@@ -685,6 +697,10 @@ export async function compareStat(stat: string): Promise<object> {
     case "all gamemodes win percent":
     case "win %":
     case "wins %":
+    case "win ratio":
+    case "wins ratio":
+    case "win ratio all":
+    case "wins ratio all":
     case "all wins %":
     case "all win %":
     case "all gamemode wins %":
