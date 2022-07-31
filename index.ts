@@ -82,8 +82,8 @@ client.on("ready", async () => {
     description: "show the kills leaderboard for the people registered with the bot",
     options: [{
       name: "game-mode",
-      description: "Solos | Duos | Squads",
-      required: true,
+      description: "Solos | Duos | Squads | All",
+      required: false,
       type: types.STRING
     }]
   });
@@ -150,7 +150,10 @@ client.on("interactionCreate", async (interaction) => {
       break;
 
     case "leaderboard":
-      await interaction.editReply(await leaderboard(options.getString("game-mode")!));
+      if (options.getString('game-mode'))
+        await interaction.editReply(await leaderboard(options.getString("game-mode")!));
+      else
+        await interaction.editReply(await leaderboard("all"));
       break;
 
     case "stats-list":
