@@ -1,3 +1,4 @@
+import { UserContextMenuInteraction } from "discord.js";
 import { Api } from "../api";
 import { IApplicationUser } from "../ApplicationUser";
 import { Colors } from "../colors";
@@ -124,6 +125,24 @@ export async function leaderboard(gameMode: string): Promise<object> {
   const users: Array<SARdata> = await getUsers();
 
   switch (gameMode) {
+    case "all":
+    case "a":
+    case "al":
+    case "all gamemode":
+    case "all gamemodes":
+      return { embeds: [{
+        color: Colors.purple,
+        title: "All Gamemodes Leaderboard",
+        fields: users.sort((a, b) => ((a.stats.Kills.value + a.stats.KillsDuos.value + a.stats.KillsSquads.value) > (b.stats.Kills.value + b.stats.KillsDuos.value + b.stats.KillsSquads.value) ? 1 : -1)).reverse().map((user: SARdata, index: number) => {
+         return {
+          name: `#${index + 1} - ${user.username}`,
+          value: `Kills: .......................... **${user.stats.Kills.value + user.stats.KillsDuos.value + user.stats.KillsSquads.value}**\nDeaths: .................... **${user.stats.Deaths.value + user.stats.DeathsDuos.value + user.stats.DeathsSquads.value}**\nKill/Death Ratio: .. \`${((user.stats.Kills.value + user.stats.KillsDuos.value + user.stats.KillsSquads.value) / ((user.stats.Deaths.value + user.stats.DeathsDuos.value + user.stats.DeathsSquads.value) === 0 ? 1 : (user.stats.Deaths.value + user.stats.DeathsDuos.value + user.stats.DeathsSquads.value))).toFixed(2)}\`\nTop X Placements**:** \`${user.stats.Top5.value + user.stats.Top3Duos.value + user.stats.Top2Squads.value}\`\nGames: ................... \`${user.stats.Games.value + user.stats.GamesDuos.value + user.stats.GamesSquads.value}\`\nWins: ....................... **${user.stats.Wins.value + user.stats.WinsDuos.value + user.stats.WinsSquads.value}**\nLosses: .................... **${(user.stats.Games.value + user.stats.GamesDuos.value + user.stats.GamesSquads.value) - (user.stats.Wins.value + user.stats.WinsDuos.value + user.stats.WinsSquads.value)}**\nWin Percentage: .. \`%${((((user.stats.Wins.value + user.stats.WinsDuos.value + user.stats.WinsSquads.value) / (((user.stats.Games.value + user.stats.GamesDuos.value + user.stats.GamesSquads.value) - (user.stats.Wins.value + user.stats.WinsDuos.value + user.stats.WinsSquads.value)) === 0 ? 1 : ((user.stats.Games.value + user.stats.GamesDuos.value + user.stats.GamesSquads.value) - (user.stats.Wins.value + user.stats.WinsDuos.value + user.stats.WinsSquads.value))))) * 100).toFixed(2)}\``,
+          inline: false
+        }}),
+        timestamp: new Date(),
+        footer: { text: "All Gamemodes Leaderboard", iconURL: icon }
+      }]};
+
     case "s":
     case "sls":
     case "sl":
@@ -132,7 +151,7 @@ export async function leaderboard(gameMode: string): Promise<object> {
     case "solos":
       return { embeds: [{
         color: Colors.purple,
-        title: "Solo Kills Leaderboard",
+        title: "Solos Leaderboard",
         fields: users.sort((a, b) => (a.stats.Kills.value > b.stats.Kills.value ? 1 : -1)).reverse().map((user: SARdata, index: number) => {
          return {
           name: `#${index + 1} - ${user.username}`,
@@ -140,7 +159,7 @@ export async function leaderboard(gameMode: string): Promise<object> {
           inline: false
         }}),
         timestamp: new Date(),
-        footer: { text: "Solo Kills Leaderboard", iconURL: icon }
+        footer: { text: "Solos Leaderboard", iconURL: icon }
       }]};
 
     case "d":
@@ -151,7 +170,7 @@ export async function leaderboard(gameMode: string): Promise<object> {
     case "duos":
       return { embeds: [{
         color: Colors.purple,
-        title: "Duos Kills Leaderboard",
+        title: "Duos Leaderboard",
         fields: users.sort((a, b) => (a.stats.KillsDuos.value > b.stats.KillsDuos.value ? 1 : -1)).reverse().map((user: SARdata, index: number) => {
          return {
           name: `#${index + 1} - ${user.username}`,
@@ -159,7 +178,7 @@ export async function leaderboard(gameMode: string): Promise<object> {
           inline: false
         }}),
         timestamp: new Date(),
-        footer: { text: "Duos Kills Leaderboard", iconURL: icon }
+        footer: { text: "Duos Leaderboard", iconURL: icon }
       }]};
 
     case "sq":
@@ -170,7 +189,7 @@ export async function leaderboard(gameMode: string): Promise<object> {
     case "squads":
       return { embeds: [{
         color: Colors.purple,
-        title: "Squads Kills Leaderboard",
+        title: "Squads Leaderboard",
         fields: users.sort((a, b) => (a.stats.KillsSquads.value > b.stats.KillsSquads.value ? 1 : -1)).reverse().map((user: SARdata, index: number) => {
          return {
           name: `#${index + 1} - ${user.username}`,
@@ -178,12 +197,12 @@ export async function leaderboard(gameMode: string): Promise<object> {
           inline: false
         }}),
         timestamp: new Date(),
-        footer: { text: "Squads Kills Leaderboard", iconURL: icon }
+        footer: { text: "Squads Leaderboard", iconURL: icon }
       }]};
 
     default:
       return { embeds: [{
-        colors: Colors.red,
+        color: Colors.red,
         title: "Invalid Game Mode",
         description: "The `game-mode` argument must be either `Solos`, `Duos`, `Squads`, or `All`",
         timestamp: new Date(),
