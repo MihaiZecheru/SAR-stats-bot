@@ -138,7 +138,7 @@ client.on("interactionCreate", async (interaction) => {
 
   switch (commandName) {
     case "ping":
-      await interaction.editReply(ping());
+      await interaction.editReply(ping(Date.now() - interaction.createdTimestamp));
       break;
 
     case "stats":
