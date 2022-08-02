@@ -1,5 +1,3 @@
-import { icon } from "../icon";
-
-export function ping(): object {
-  return { content: icon }
+export function ping(latency: number): object {
+  return { content: `pong: ${latency}ms` }
 }
